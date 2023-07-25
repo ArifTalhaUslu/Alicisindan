@@ -12,8 +12,6 @@ public class AlicisindanDbContext : DbContext
 {
     public DbSet<AppUser> Users{ get; set; }
     public DbSet<City> Cities { get; set; }
-    public DbSet<Wallet> Wallets{ get; set; }
-    public DbSet<WalletProcess> WalletProcesses { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
 
@@ -30,12 +28,6 @@ public class AlicisindanDbContext : DbContext
         modelBuilder.Entity<AppUser>().Property(a => a.Password).HasColumnType("VARCHAR").HasMaxLength(8000);
 
         modelBuilder.Entity<City>().Property(a => a.Name).HasColumnType("VARCHAR").HasMaxLength(500);
-
-        modelBuilder.Entity<Wallet>().Property(a => a.Balance).HasColumnType("FLOAT");
-
-        modelBuilder.Entity<WalletProcess>().Property(a => a.DateOfProcess).HasColumnType("DATE");
-        modelBuilder.Entity<WalletProcess>().Property(a => a.Amount).HasColumnType("FLOAT");
-        modelBuilder.Entity<WalletProcess>().Property(a => a.TypeOfProcess).HasColumnType("VARCHAR").HasMaxLength(200);
 
         modelBuilder.Entity<Category>().Property(a => a.Name).HasColumnType("VARCHAR").HasMaxLength(300);
 

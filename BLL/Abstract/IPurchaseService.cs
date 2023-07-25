@@ -10,6 +10,6 @@ namespace BLL.Abstract;
 
 public interface IPurchaseService
 {
-    public bool Purchase(int ProductId);
-    //public bool CreateRefundOffer(long ProductId);
+    public bool SoldProduct(int ProductId); //Set the Sold prop = 1
+    public bool SetProductToActive(int ProductId);//Set the Sold prop = 0
 }

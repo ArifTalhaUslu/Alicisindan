@@ -17,16 +17,12 @@ public class UnitOfWork : IUnitOfWork
         _context = context;
         CityRepository  = new CityRepository(_context);
         UserRepository  = new UserRepository(_context);
-        WalletRepository  = new WalletRepository(_context);
-        WalletProcessRepository  = new WalletProcessRepository(_context);
         ProductRepository  = new ProductRepository(_context);
         CategoryRepository = new CategoryRepository(_context);
     }
 
     public ICityRepository CityRepository  { get; private set; }
     public IUserRepository UserRepository  { get; private set; }
-    public IWalletRepository WalletRepository  { get; private set; }
-    public IWalletProcessRepository WalletProcessRepository  { get; private set; }
     public IProductRepository ProductRepository { get; private set; }
     public ICategoryRepository CategoryRepository  { get; private set; }
   

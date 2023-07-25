@@ -11,22 +11,25 @@ namespace BLL.Concrete;
 
 public class PurchaseService : IPurchaseService
 {
-    public List<Wallet>? GetAllWallets()
+    public bool SetProductToActive(int ProductId)
     {
         using (IUnitOfWork _unit = new UnitOfWork(new DataAccess.Context.AlicisindanDbContext()))
         {
-            return _unit.WalletRepository.GetListByExpression(w=>w.Balance > 0);
+            var Product = _unit.ProductRepository.GetProductWithAll(ProductId);
+            Product.Sold = 0;
+            
+            return _unit.ProductRepository.Update(Product) > 0;
         }
     }
 
-
-    public bool Purchase(int ProductId)
+    public bool SoldProduct(int ProductId)
     {
         using (IUnitOfWork _unit = new UnitOfWork(new DataAccess.Context.AlicisindanDbContext()))
         {
             var Product = _unit.ProductRepository.GetProductWithAll(ProductId);
             Product.Sold = 1;
+
             return _unit.ProductRepository.Update(Product) > 0;
         }
-    } 
+    }
 }

@@ -9,4 +9,5 @@ namespace DataAccess.Repositories.Abstract;
 
 public interface IUserRepository : IGenericRepository<AppUser>
 {
+    public AppUser? GetUserByEmail(string Email);
 }

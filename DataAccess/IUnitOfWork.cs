@@ -10,8 +10,6 @@ namespace DataAccess;
 public interface IUnitOfWork : IDisposable
 {
     IUserRepository UserRepository { get; }
-    IWalletRepository WalletRepository { get; }
-    IWalletProcessRepository WalletProcessRepository { get; }
     ICategoryRepository CategoryRepository { get; }
     ICityRepository CityRepository { get; }
     IProductRepository ProductRepository { get; }

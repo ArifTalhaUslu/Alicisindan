@@ -1,7 +1,26 @@
+using BLL.Abstract;
+using BLL.Concrete;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
+
+//Services
+builder.Services.AddSingleton<ILoginService, LoginService>();
+builder.Services.AddSingleton<IProductService, ProductService>();
+builder.Services.AddSingleton<IPurchaseService, PurchaseService>();
+builder.Services.AddSingleton<IUserService, UserService>();
+//builder.Services.AddSingleton<ICityService, CityService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Auth
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => 
+                {
+                    options.LoginPath = "/Login/Index";
+                    options.AccessDeniedPath = "/Login/Denied";
+                });
 
 var app = builder.Build();
 
@@ -18,6 +37,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

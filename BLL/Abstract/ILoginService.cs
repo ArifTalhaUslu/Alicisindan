@@ -1,12 +1,14 @@
 ﻿using Entity.Models;
+using Entity.PModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Repositories.Abstract;
+namespace BLL.Abstract;
 
-public interface IWalletProcessRepository : IGenericRepository<WalletProcess>
+public interface ILoginService
 {
+    public AppUser? Login(PmLogin param);
 }
