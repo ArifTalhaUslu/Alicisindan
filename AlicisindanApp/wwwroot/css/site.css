@@ -16,3 +16,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.CardImg{
+    max-width:150px;
+    border-radius:50%;
+}

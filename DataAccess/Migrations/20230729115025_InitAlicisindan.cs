@@ -1,11 +1,10 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace DataAccess.Migrations
 {
-    public partial class Init : Migration
+    public partial class InitAlicisindan : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +12,7 @@ namespace DataAccess.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "VARCHAR(300)", maxLength: 300, nullable: false)
                 },
@@ -26,7 +25,7 @@ namespace DataAccess.Migrations
                 name: "Cities",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "VARCHAR(500)", maxLength: 500, nullable: false)
                 },
@@ -36,44 +35,16 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WalletProcesses",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Amount = table.Column<double>(type: "FLOAT", nullable: false),
-                    DateOfProcess = table.Column<DateTime>(type: "DATE", nullable: false),
-                    TypeOfProcess = table.Column<string>(type: "VARCHAR(200)", maxLength: 200, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WalletProcesses", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Wallets",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Balance = table.Column<double>(type: "FLOAT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Wallets", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "VARCHAR(8000)", maxLength: 8000, nullable: false),
                     Email = table.Column<string>(type: "VARCHAR(200)", maxLength: 200, nullable: false),
                     Name = table.Column<string>(type: "VARCHAR(200)", maxLength: 200, nullable: false),
-                    CityId = table.Column<long>(type: "bigint", nullable: false),
-                    WalletId = table.Column<long>(type: "bigint", nullable: false)
+                    CityId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -84,23 +55,17 @@ namespace DataAccess.Migrations
                         principalTable: "Cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Users_Wallets_WalletId",
-                        column: x => x.WalletId,
-                        principalTable: "Wallets",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OwnerId = table.Column<long>(type: "bigint", nullable: false),
-                    CategoryId = table.Column<long>(type: "bigint", nullable: false),
-                    Price = table.Column<double>(type: "FLOAT", maxLength: 300, nullable: false),
+                    OwnerId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<double>(type: "FLOAT", nullable: false),
                     Sold = table.Column<int>(type: "INT", maxLength: 2, nullable: false),
                     Header = table.Column<string>(type: "VARCHAR(300)", maxLength: 300, nullable: false),
                     Description = table.Column<string>(type: "VARCHAR(300)", maxLength: 300, nullable: false),
@@ -137,20 +102,12 @@ namespace DataAccess.Migrations
                 name: "IX_Users_CityId",
                 table: "Users",
                 column: "CityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_WalletId",
-                table: "Users",
-                column: "WalletId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "WalletProcesses");
 
             migrationBuilder.DropTable(
                 name: "Categories");
@@ -160,9 +117,6 @@ namespace DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Cities");
-
-            migrationBuilder.DropTable(
-                name: "Wallets");
         }
     }
 }

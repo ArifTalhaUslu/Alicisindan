@@ -22,7 +22,7 @@ public class UserService : IUserService//aslodaoşıksdas GetUser(null);
     {
         using (IUnitOfWork _unit = new UnitOfWork(new AlicisindanDbContext()))
         {
-            var Users = _unit.UserRepository.GetAll().ToList();//All DbUsers
+            var Users = _unit.UserRepository.GetUsersWithCities().ToList();//All DbUsers
 
             if (param is not null)//Filtering Users
             {

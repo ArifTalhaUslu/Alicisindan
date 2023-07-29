@@ -9,5 +9,7 @@ namespace DataAccess.Repositories.Abstract;
 
 public interface IUserRepository : IGenericRepository<AppUser>
 {
+    public List<AppUser> GetUsersWithCities();
+    public List<AppUser> GetUsersByCity(int CityId);
     public AppUser? GetUserByEmail(string Email);
 }

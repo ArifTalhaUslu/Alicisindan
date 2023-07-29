@@ -1,4 +1,6 @@
 ﻿using BLL.Abstract;
+using DataAccess;
+using DataAccess.Context;
 using Entity.Models;
 using System;
 using System.Collections.Generic;
@@ -12,36 +14,58 @@ public class ProductService : IProductService
 {
     public bool AddProduct(Product product)
     {
-        throw new NotImplementedException();
+        using (IUnitOfWork _unit = new UnitOfWork(new AlicisindanDbContext()))
+        {
+            product.Sold = 0;
+            return _unit.ProductRepository.Add(product) > 0;
+        }
     }
 
     public bool DeleteProduct(int id)
     {
-        throw new NotImplementedException();
+        using (IUnitOfWork _unit = new UnitOfWork(new AlicisindanDbContext()))
+        {
+            return _unit.ProductRepository.Delete(id) > 0;
+        }
     }
 
     public List<Product> GetAllProducts()
     {
-        throw new NotImplementedException();
+        using (IUnitOfWork _unit = new UnitOfWork(new AlicisindanDbContext()))
+        {
+            return _unit.ProductRepository.GetAll().ToList();
+        }
     }
 
     public Product GetProductById(int id)
     {
-        throw new NotImplementedException();
+        using (IUnitOfWork _unit = new UnitOfWork(new AlicisindanDbContext()))
+        {
+            return _unit.ProductRepository.GetById(id);
+        }
     }
 
     public List<Product> GetProductsByCategory(int CategoryId)
     {
-        throw new NotImplementedException();
+        using (IUnitOfWork _unit = new UnitOfWork(new AlicisindanDbContext()))
+        {
+            return _unit.ProductRepository.GetListByExpression(x=>x.CategoryId == CategoryId);
+        }
     }
 
     public List<Product> GetUsersProduct(int UserId)
     {
-        throw new NotImplementedException();
+        using (IUnitOfWork _unit = new UnitOfWork(new AlicisindanDbContext()))
+        {
+           return _unit.ProductRepository.GetListByExpression(x=>x.OwnerId == UserId);
+        }
     }
 
     public bool UpdateProduct(Product product)
     {
-        throw new NotImplementedException();
+        using (IUnitOfWork _unit = new UnitOfWork(new AlicisindanDbContext()))
+        {
+            return _unit.ProductRepository.Update(product) > 0;
+        }
     }
 }

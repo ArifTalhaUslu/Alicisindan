@@ -52,7 +52,7 @@ namespace AlicisindanApp.Controllers
         public async Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Denied()

@@ -1,7 +1,85 @@
-﻿@{
+﻿@using System.Security.Claims;
+@using Entity.VModels;
+@model VmProfile
+@{
     ViewData["Title"] = "Profile Page";
 }
 
-<div class="text-center">
-    Profike
+<div class="container">
+
+    <div class="">
+        <div>
+            <div>
+                <img class="CardImg" src="@Model.ProfileOwner.ImgUrl" />
+            </div>
+
+            <h1>@Model.ProfileOwner.Name - @Model.ProfileOwner.City.Name</h1>
+        </div>
+        <div>
+            @if (Model.isUserAuthorizedForThisPage)
+            {
+                <div class="buttonsArea" style="margin-bottom:10px; padding:10px;">
+                    <a class="btn btn-success" data-toggle="modal" data-target="#ProductAddModal">Add Product</a>
+                </div>
+                <div class="modal fade" id="ProductAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content p-3">
+                            <form action="/Product/Add" method="post">
+                                <div class="modal-header">
+                                    <h5 class="modal-title h2" id="exampleModalLongTitle">Add Product</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" name="Header" placeholder="Produt Name" class="form-control m-2" required />
+                                    <textarea type="text" name="Description" placeholder="Produt Description" class="form-control m-2" rows="4" cols="50" required></textarea>
+                                    <input type="text" name="ImgUrl" placeholder="Image" class="form-control m-2" required />
+                                    <input type="number" name="Price" placeholder="Price" class="form-control m-2" required />
+                                    <select name="CategoryId" class="form-control m-2">
+                                        @foreach (var cat in Model.Categories)
+                                        {
+                                            <option value="@cat.Id">@cat.Name</option>
+                                        }
+                                    </select>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <input type="submit" class="btn btn-primary" value="Add">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        @foreach (var product in Model.Products)
+        {
+            <div class="col-4">
+                <div class="card" style="width:100%;">
+                    <img class="card-img-top" src="@product.ImgUrl" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Header</h5>
+                        <p class="card-text">@product.Description</p>
+                        <p class="text-muted">@product.Price $</p>
+                        <a href="#" class="btn btn-warning" data-target="#ProductAddModal-3">Update</a>
+
+                        <a href="#" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (!(Model.Products.Count > 0))
+    {
+        <p>Empty Prod List</p>
+    }
 </div>
+

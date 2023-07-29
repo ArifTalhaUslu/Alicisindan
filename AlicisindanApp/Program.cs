@@ -9,7 +9,7 @@ builder.Services.AddSingleton<ILoginService, LoginService>();
 builder.Services.AddSingleton<IProductService, ProductService>();
 builder.Services.AddSingleton<IPurchaseService, PurchaseService>();
 builder.Services.AddSingleton<IUserService, UserService>();
-//builder.Services.AddSingleton<ICityService, CityService>();
+builder.Services.AddSingleton<ICategoryService, CategoryService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

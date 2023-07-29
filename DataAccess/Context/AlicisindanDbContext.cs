@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace DataAccess.Context;
 
@@ -17,7 +18,7 @@ public class AlicisindanDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=AlicisindanDb;Integrated Security=true;Encrypt=False");
+        optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Alicisindan;Integrated Security=true;Encrypt=False");
         base.OnConfiguring(optionsBuilder);
     }
 
@@ -26,9 +27,9 @@ public class AlicisindanDbContext : DbContext
         modelBuilder.Entity<AppUser>().Property(a => a.Name).HasColumnType("VARCHAR").HasMaxLength(200).IsRequired();
         modelBuilder.Entity<AppUser>().Property(a => a.Email).HasColumnType("VARCHAR").HasMaxLength(200).IsRequired();
         modelBuilder.Entity<AppUser>().Property(a => a.Password).HasColumnType("VARCHAR").HasMaxLength(8000);
-
+        
         modelBuilder.Entity<City>().Property(a => a.Name).HasColumnType("VARCHAR").HasMaxLength(500);
-
+        
         modelBuilder.Entity<Category>().Property(a => a.Name).HasColumnType("VARCHAR").HasMaxLength(300);
 
         modelBuilder.Entity<Product>().Property(a => a.Price).HasColumnType("FLOAT");
